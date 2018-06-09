@@ -586,11 +586,11 @@ For two non-commutative Liouville operators $\Liu A$ and $\Liu B$ and a real con
 &= e^{\timestep (\Liu A + \Liu B) + \frac{\timestep^3}{24} \left[2 \Liu A + \Liu B,[\Liu A,\Liu B]\right] + \mathcal{O}(\timestep^5)},
 \end{split}
 \end{equation}
-where $[X,Y]$ is the commutator of operators $X$ and $Y$, defined as $[X,Y] = XY - YX$.
-The remaining terms of the infinite series involve ever-deepening, nested commutators \cite{Hairer_2006}.
+where $[X,Y] = XY - YX$ is the commutator of operators $X$ and $Y$.
+The remaining terms of the infinite series involve ever-deepening nested commutators \cite{Hairer_2006}.
 
 Let us now represent the operators $\Liu A$ and $\Liu B$ using Poisson brackets involving Hamiltonians $\Ham A$ and $\Ham B$, that is, $\Liu A = \{\circ,\Ham A\}$ and $\Liu B = \{\circ,\Ham B\}$.
-By employing the properties of anti-commutativity and Jacobi identity \cite{Hairer_2006}, we can deduce that
+By employing the property of anti-commutativity and the Jacobi identity \cite{Hairer_2006}, we can deduce that
 \begin{align*}
 [\Liu A,\Liu B] &= \{\{\circ,\Ham B\},\Ham A\} - \{\{\circ,\Ham A\},\Ham B\} = \\
 &= -\{\Ham A,\{\circ,\Ham B\}\} - \{\Ham B,\{\Ham A,\circ\}\} = \\
@@ -602,16 +602,17 @@ This means that the commutator $[\Liu A,\Liu B]$ is, in fact, a new Liouville op
 By applying this procedure recursively, we can rewrite the right-hand side of Eq.~\eqref{eq:symmetric BCH} as $e^{\timestep \Liu S}$, where $\Liu S$ is the Liouville operator whose associated Hamiltonian is
 \begin{equation*}
 \label{eq:general shadow hamiltonian}
-\refined{\Ham{}} = \Ham A + \Ham B + \frac{\timestep^2}{24} (2 \Liu A + \Liu B){\Liu A}{\Ham B} + \mathcal{O}(\timestep^4).
+\Ham{S} = \Ham A + \Ham B + \frac{\timestep^2}{24} (2 \Liu A + \Liu B){\Liu A}{\Ham B} + \mathcal{O}(\timestep^4).
 \end{equation*}
 
-Therefore, a splitting method meant to approximately reproduce the dynamics of a system with Hamiltonian $\Ham{} = \Ham A + \Ham B$ will, in fact, reproduce exactly (putting round-off issues aside) the dynamics of another system with Hamiltonian $\refined{\Ham{}}$ as above.
-In the literature, $\refined{\Ham{}}$ is usually referred to as a shadow Hamiltonian.
+Therefore, a splitting method meant to approximately reproduce the dynamics of a system with Hamiltonian $\Ham{} = \Ham A + \Ham B$ will, in fact, reproduce exactly (round-off issues aside) the dynamics of another system with Hamiltonian $\Ham{S}$ as above.
+In the literature, $\Ham{S}$ is usually referred to as a shadow Hamiltonian.
 
-In the development that follows, we consider a single rigid body and, in the end, we generalize the result for a system of rigid bodies.
+We remark that a single rigid body is considered in the development that follows, but the final result can be readily generalized for a system with multiple bodies.
 
-For the splitting introduced in Section~\ref{sec:nve}, $\Ham A = K(\vt p, \vt q, \vt \pi)$ and $\Ham B = U(\vt r, \vt q)$ with the corresponding Liouviller operators $\Liu{A} = \tr{K_{\vt p}}\diff{}{\vt r} + \tr{K_{\vt \pi}}\diff{}{\vt q} - \tr{K_{\vt q}}\diff{}{\vt \pi}$ and $\Liu{B} = -\tr{U_{\vt r}}\diff{}{\vt p} - \tr{U_{\vt q}}\diff{}{\vt \pi}$, with $K_{x}$ and $U_{x}$ being the gradient of the kinetic and potential energies, respectively.
-We first obtain $\Liu A \Ham B = \tr{K_{\vt p}} U_{\vt r} + \tr{K_{\vt \pi}} U_{\vt q}$, and we find that
+For the splitting introduced in Sec.~\ref{sec:nve}, $\Ham A = K(\vt p, \vt q, \vt \pi)$ and $\Ham B = U(\vt r, \vt q)$ with the corresponding Liouville operators $\Liu{A} = \tr{K_{\vt p}}\diff{}{\vt r} + \tr{K_{\vt \pi}}\diff{}{\vt q} - \tr{K_{\vt q}}\diff{}{\vt \pi}$ and $\Liu{B} = -\tr{U_{\vt r}}\diff{}{\vt p} - \tr{U_{\vt q}}\diff{}{\vt \pi}$.
+Note that any gradient like $\diff{f}{\vt x}$ is now represented as $f_{\vt x}$ for the sake of simplicity.
+We start by obtaining $\Liu A \Ham B = \tr{K_{\vt p}} U_{\vt r} + \tr{K_{\vt \pi}} U_{\vt q}$. Next, we deduce that
 \begin{align*}
 \Liu A \Liu A \Ham B &= \tr{K_{\vt p}} U_{\vt r \vt r} K_{\vt p}
 + 2 \tr{K_{\vt \pi}} U_{\vt r \vt q} K_{\vt p}
@@ -619,7 +620,7 @@ We first obtain $\Liu A \Ham B = \tr{K_{\vt p}} U_{\vt r} + \tr{K_{\vt \pi}} U_{
 &+ \tr{K_{\vt \pi}} K_{\vt \pi \vt q} U_{\vt q}
 - \tr{K_{\vt q}} K_{\vt \pi \vt \pi} U_{\vt q},
 \end{align*}
-where the fact that $\tr{U_{\vt q \vt r}} = U_{\vt r \vt q}$ has been exploited.
+where the fact that $\tr{U_{\vt q \vt r}} = U_{\vt r \vt q}$ has been used.
 As reported in Ref.~\citenum{Silveira_2017}, the identity $\tr{\mt B}(\vt q) {\vt \pi} = -\tr{\mt B}(\vt \pi) {\vt q}$ is useful for performing differentiations.
 The first-order derivatives of $K$ with respect to $\vt p$, $\vt q$, and $\vt \pi$ are, respectively,
 \begin{align*}
@@ -639,43 +640,42 @@ As $\diff{\tr{\vt \omega}}{\vt \pi} = \frac{1}{2} {\mt B}(\vt q) {\mt I}^{-1}$, 
 K_{\vt \pi \vt \pi} = \frac{1}{4} {\mt B}(\vt q) {\mt I}^{-1} \tr{\mt B}(\vt q).
 \end{equation*}
 
-Pre-multiplication by $\tr{K_{\vt q}}$ will introduce a product $\tr{\mt B}(\vt \pi) {\mt B}(\vt q)$, which has been shown in Ref.~\citenum{Silveira_2017} to be equal to ${\mt S}\left( \tr{\mt B}(\vt \pi) {\vt q} \right) = -2 {\mt S}({\mt I} {\vt \omega})$, where the operator ${\mt S}(\cdot)$ builds a skew-symmetric matrix from the entries of a vector.
-In addition, post-multiplication by $U_{\vt q}$ will introduce a product $\tr{\mt B}(\vt q) U_{\vt q}$, which is equal to $-2 {\vt \tau}^b$, where ${\vt \tau}^b$ is the body-fixed frame representation of the torque.
+Pre-multiplication by $\tr{K_{\vt q}}$ will introduce a product $\tr{\mt B}(\vt \pi) {\mt B}(\vt q)$.
+This has been shown in Ref.~\citenum{Silveira_2017} to be equal to ${\mt S}\left( \tr{\mt B}(\vt \pi) {\vt q} \right) = -2 {\mt S}({\mt I} {\vt \omega})$, where the operator ${\mt S}(\cdot)$ builds a skew-symmetric matrix from the entries of a vector.
+In addition, post-multiplication by $U_{\vt q}$ will introduce a product $\tr{\mt B}(\vt q) U_{\vt q}$, which is equal to $-2 {\vt \tau}_b$ \cite{Silveira_2017}, where ${\vt \tau}_b$ is the body-fixed frame representation of the torque.
 Then, the fact that ${\mt S}(\vt x) {\vt y} = -{\mt S}(\vt y) {\vt x}$ leads to
 \begin{equation*}
-\tr{K_{\vt q}} K_{\vt \pi \vt \pi} U_{\vt q} = \frac{1}{2} \tr{\vt \omega} {\mt S}({\mt I}^{-1} {\vt \tau}^b) {\mt I} {\vt \omega} = 0,
+\tr{K_{\vt q}} K_{\vt \pi \vt \pi} U_{\vt q} = \frac{1}{2} \tr{\vt \omega} {\mt S}({\mt I}^{-1} {\vt \tau}_b) {\mt I} {\vt \omega}.
 \end{equation*}
-which is a null term as it corresponds to the quadratic form of a skew-symmetric matrix.
-Another helpful identity taken from Appendix B of Ref.~\citenum{Silveira_2017} is ${\mt B}(\vt q){\vt \omega} = ( \sum_{k=1}^3 \omega_k \hat{\mt B}_k ) \vt q$, where each $\hat{\mt B}_k$ is a skew-symmetric permutation matrix (i.e.
-$\tr{\hat{\mt B}}_k = -\hat{\mt B}_k$).
+
+The term above is identically null, as it corresponds to the quadratic form built with a skew-symmetric matrix.
+Another helpful identity taken from Appendix B of Ref.~\citenum{Silveira_2017} is ${\mt B}(\vt q){\vt \omega} = ( \sum_{k=1}^3 \omega_k \hat{\mt B}_k ) \vt q$, where each $\hat{\mt B}_k$ is a skew-symmetric permutation matrix (i.e. $\tr{\hat{\mt B}}_k = -\hat{\mt B}_k$).
 This allows us to obtain
 \begin{align*}
-K_{\vt \pi \vt q} &= \frac{1}{2} (\diff{\tr{\vt \omega}}{\vt q}) \tr{\mt B}(\vt q) + \frac{1}{2} \sum_{k=1}^3 \omega_k \tr{\hat{\mt B}}_k = \\
+K_{\vt \pi \vt q} &= \frac{1}{2} \left(\diff{\tr{\vt \omega}}{\vt q}\right) \tr{\mt B}(\vt q) + \frac{1}{2} \sum_{k=1}^3 \omega_k \tr{\hat{\mt B}}_k = \\
 &= -\frac{1}{4} {\mt B}(\vt \pi) {\mt I}^{-1} \tr{\mt B}(\vt q) - \frac{1}{2} \sum_{k=1}^3 \omega_k \hat{\mt B}_k.
 \end{align*}
 
-Pre-multiplication by $\tr{K_{\vt \pi}}$ and post-multiplying $U_{\vt q}$, followed by some algebraic transformations, ultimately lead to
+Pre-multiplication by $\tr{K_{\vt \pi}}$ and post-multiplication by $U_{\vt q}$, followed by some algebraic transformations, ultimately lead to
 \begin{equation*}
-\tr{K_{\vt \pi}} K_{\vt \pi \vt q} U_{\vt q} = -\frac{1}{2} \tr{\vt \omega} \tr{\mt S}({\mt I}^{-1} {\vt \tau}^b) {\mt I} {\vt \omega} + \frac{1}{2} \tr{\vt \omega} {\mt S}({\vt \tau}^b){\vt \omega}.
+\tr{K_{\vt \pi}} K_{\vt \pi \vt q} U_{\vt q} = -\frac{1}{2} \tr{\vt \omega} \tr{\mt S}({\mt I}^{-1} {\vt \tau}_b) {\mt I} {\vt \omega} + \frac{1}{2} \tr{\vt \omega} {\mt S}({\vt \tau}_b){\vt \omega}.
 \end{equation*}
-Both terms in the right-hand side of the equation above are identically null. 
-Now, we are able to evaluate $\Liu A \Liu A \Ham B $, which is
+
+For the same reason explained above, both terms in the right-hand side of the equation above are identically null.
+We are now able to evaluate $\Liu A \Liu A \Ham B $, which is
 \begin{align*}
 \Liu A \Liu A \Ham B = &\tr{\vt p} {\mt M}^{-1} U_{\vt r \vt r} {\mt M}^{-1} {\vt p} + \tr{\vt \omega} \tr{\mt B}(\vt q) U_{\vt r \vt q} {\mt M}^{-1} {\vt p}
 + \\
 &\frac{1}{4} \tr{\vt \omega} \tr{\mt B}(\vt q) U_{\vt q \vt q} {\mt B}(\vt q) \vt \omega.
 \end{align*}
-The remaining term to obtain $H_s$ is simply given by 
+
+Finally, the term that remains for obtaining $\Ham{S}$ is given by
 \begin{align*}
 \Liu B \Liu A \Ham B &= -\tr{U_{\vt r}} \tr{K_{\vt p \vt p}} U_{\vt r} - \tr{U_{\vt q}} \tr{K_{\vt \pi \vt \pi}} U_{\vt q} = \\
 &= -\tr{\vt F} {\mt M}^{-1} {\vt F} - \tr{\vt \tau}_b {\mt I}^{-1} {\vt \tau}_b.
 \end{align*}
 
-As will become clear below, it is convenient to rewrite the total kinetic energy of the original system, Eq.~\eqref{eq:kinetic energy}, as a quadratic form
-\begin{equation*}
-K = \frac{1}{2} \tr{ \left[\begin{array}{c} \vt p \\ \vt \pi \end{array}\right]} {\mt \Omega}(\vt q) \left[\begin{array}{c} \vt p \\ \vt \pi \end{array}\right],
-\end{equation*}
-where $\mt \Omega$ is a symmetric, block-diagonal matrix of size $7N \times 7N$ defined as
+It is convenient to rewrite the total kinetic energy of the original system, Eq.~\eqref{eq:kinetic energy}, as a quadratic form $K = \frac{1}{2}\tr{[\substack{\vt p \\ \vt \pi}]} {\mt \Omega}(\vt q) [\substack{\vt p \\ \vt \pi}]$, where $\mt \Omega$ is a symmetric, block-diagonal matrix defined as
 \begin{equation}
 \label{eq:block-diagonal inverse mass tensor}
 {\mt \Omega} = \left[\begin{array}{cc}
@@ -684,33 +684,23 @@ where $\mt \Omega$ is a symmetric, block-diagonal matrix of size $7N \times 7N$ 
 \end{array}\right].
 \end{equation}
 
-We now proceed to show the final expression of $H_s$, which results from grouping the terms corresponding to forces and torques in the \textit{modified} potential energy $\tilde{U}$, given by
+We now proceed to present the final expression of $\Ham{S}$, which results from grouping the terms corresponding to forces and torques in the refined potential energy $\refined U(\vt r, \vt q, h^2)$, given by
 \begin{equation*}
-\refined U = U - \frac{\timestep^2}{24} \left( \tr{\vt F} {\mt M}^{-1} {\vt F} + \tr{\vt \tau} \tr{\mt A} {\mt I}^{-1} {\mt A} {\vt \tau} \right).
+\refined U = U - \frac{\timestep^2}{24} \left( \tr{\vt F} {\mt M}^{-1} {\vt F} + \tr{\vt \tau} \tr{\mt A} {\mt I}^{-1} {\mt A} {\vt \tau} \right),
 \end{equation*}
-while the remaining terms can be recast in a compact matrix, as follows
+while the terms that depend on the momentum vectors $\vt p$ and $\vt q$ are grouped together in the refined kinetic energy $\refined K$, which can be written in a compact matrix form as
 \begin{equation*}
-\refined K = \frac{1}{2} \tr{ \left[\begin{array}{c} \vt p \\ \vt \pi \end{array}\right]} \refined{\mathbf \Omega}(\vt r, \vt q) \left[\begin{array}{c} \vt p \\ \vt \pi \end{array}\right],
+\refined K = \frac{1}{2} \tr{ \left[\begin{array}{c} \vt p \\ \vt \pi \end{array}\right]} \refined{\mathbf \Omega}(\vt r, \vt q, h^2) \left[\begin{array}{c} \vt p \\ \vt \pi \end{array}\right],
 \end{equation*}
 where
 \begin{equation*}
-\tilde{\mt \Omega} = {\mt \Omega} + \frac{\timestep^2}{6} \left( {\mt \Omega} {\mt U}_{\vt x \vt x} \tr{\mt \Omega} \right)
-\end{equation*}
-and
-\begin{equation*}
-{\mt U}_{\vt x \vt x} = \left[\begin{array}{cc}
+\refined{\mt \Omega} = {\mt \Omega} + \frac{\timestep^2}{6} {\mt \Omega} \left[\begin{array}{cc}
 U_{\vt r \vt r} & U_{\vt r \vt q} \\
 U_{\vt q \vt r} & U_{\vt q \vt q}
-\end{array}\right].
+\end{array}\right] \tr{\mt \Omega}.
 \end{equation*}
 
-Finally, we have that
-\begin{equation*}
-\Ham S = \frac{1}{2} \tr{\left[\begin{array}{c} \vt p \\ \vt \pi \end{array}\right]} \tilde{\mt \Omega} \left[\begin{array}{c} \vt p \\ \vt \pi \end{array}\right] + \tilde{U} + \mathcal{O}({\timestep}^4),
-\end{equation*}
-
-Although $\refined{\mathbf \Omega}$ is still symmetric, it is no longer a block-diagonal matrix like $\mt \Omega$, due to the inter-body interactions accounted for in $U(\vt r, \vt q)$ and to the dependency of forces and torques on both positions and orientations.
-As a result, the modified kinetic energy cannot, in principle, be split into independent translational and rotational contributions.
+Finally, the shadow Hamiltonian is given by $\Ham{S} = {\refined U} + {\refined K} + {\mathcal O}(\timestep^4)$.
 
 \suppinfo
 
